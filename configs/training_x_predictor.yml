@@ -1,0 +1,86 @@
+data:
+  name: pl
+  path: /home/kstn/data/crossdock_2020_TD/crossdocked_v1.1_rmsd1.0_pocket10_processed_final.lmdb
+  split: /home/kstn/data/crossdock_2020_TD/crossdocked_pocket10_pose_split.pt
+  index_path: null
+  x_predictor: ../model_params/x_predictor.pth
+  h_predictor: ../model_params/h_predictor.pth
+  transform:
+    ligand_atom_mode: add_aromatic
+    random_rot: false
+
+modelp:
+  time_emb_dim: 0
+  model_type: uni_o2
+  knn: 24
+  time_emb_mode: simple
+  node_indicator: true
+  num_blocks: 1
+  num_layers: 8
+  hidden_dim: 128
+  n_heads: 16
+  edge_feat_dim: 4
+  num_r_gaussian: 20
+  num_node_types: 8
+  act_fn: relu
+  norm: true
+  cutoff_mode: knn
+  ew_net_type: global
+  num_x2h: 1
+  num_h2x: 1
+  r_max: 10.0
+  x2h_out_fc: false
+  sync_twoup: false
+
+model:
+  time_emb_dim: 1
+  model_type: uni_o2_dynamic
+  knn: 32
+  time_emb_mode: simple
+  node_indicator: true
+  num_blocks: 1
+  num_layers: 8
+  hidden_dim: 128
+  n_heads: 16
+  edge_feat_dim: 4
+  num_r_gaussian: 20
+  num_node_types: 8
+  act_fn: relu
+  norm: true
+  cutoff_mode: knn
+  ew_net_type: global
+  num_x2h: 1
+  num_h2x: 1
+  r_max: 10.0
+  x2h_out_fc: false
+  sync_twoup: false
+
+train:
+  training_mode: xp
+  loss_hyper:
+    norm_k: 5.0
+    lambda_h: 1.0
+    lambda_edgeL: 0.75
+    lambda_bond_tp: 0.0
+    lambda_surf: 10.0
+    surf_sigma: 2.0
+    surf_gamma: 3.5
+    lambda_vina: 0.0
+  seed: 2024
+  batch_size: 16
+  num_workers: 1
+  pos_noise_std: 0.1
+  max_grad_norm: 8.0
+  sigma_pos: 0.1
+  optimizer:
+    type: adam
+    lr: 5.0e-4
+    weight_decay: 0.0
+    beta1: 0.95
+    beta2: 0.999
+  scheduler:
+    type: plateau
+    factor: 0.6
+    patience: 6
+    min_lr: 1.0e-6
+

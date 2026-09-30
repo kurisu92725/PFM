@@ -1,0 +1,10 @@
+model:
+  variant: pfm
+  checkpoint: ../model_params/pfm.pth
+training_yml: training_pfm.yml
+sample:
+  seed: 2024
+  dataset_split: test
+  max_examples: null
+  num_samples: 10
+  num_steps: 100

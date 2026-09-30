@@ -1,0 +1,12 @@
+model:
+  variant: pfm_g
+  checkpoint: ../model_params/pfm_g.pth
+training_yml: training_pfm_g.yml
+sample:
+  seed: 2024
+  dataset_split: test
+  max_examples: null
+  num_samples: 10
+  num_steps: 1000
+  guidance_scale: 5.5
+  guidance_target: 1.0
