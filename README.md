@@ -37,29 +37,31 @@ The preprocessed data can be found [here](https://drive.google.com/drive/folders
 If you want to process your own data, please refer to [TargetDiff](https://github.com/guanjq/targetdiff).
 
 ## Training
-### Step 1: Select training mode
-To train the models, modify the `train.training_mode` in `training.yml`.
-### Step 2: Run
 ```bash
-python scripts/train_fm.py ../configs/training.yaml
+python scripts/train_fm.py configs/training_x_predictor.yml
+python scripts/train_fm.py configs/training_h_predictor.yml
+python scripts/train_fm.py configs/training_pfm.yml
+python scripts/train_fm.py configs/training_pfm_g.yml
 ```
+
+Update the dataset paths in the selected configuration before training. PFM
+and PFM-G load `model_params/x_predictor.pth` and
+`model_params/h_predictor.pth` by default.
 
 ## Sampling
-To sample from the test set:
 ```bash
-python scripts/sample_fm.py ../configs/sampling.yml
+python scripts/sample_fm.py configs/sampling_pfm.yml --result_path outputs/pfm
+python scripts/sample_fm.py configs/sampling_pfm_g.yml --result_path outputs/pfm_g
 ```
-If you aim to generate proteins outside the dataset, you first need to identify the approximate center of the pocket and utilize `scripts/data_preparation/clean_pocket` to obtain a relatively smaller PDB file for subsequent generation.
+
+PFM and PFM-G use different checkpoint structures. 
 
 ## Evaluation
-To evaluate the models:
 ```bash
-python scripts/evaluate_fm.py {OUTPUT_DIR} --docking_mode vina_score --protein_root {PROTEIN_ROOT}
+python scripts/evaluate_fm.py outputs/pfm --docking_mode vina_score \
+  --protein_root /path/to/crossdock_2020
 ```
 Please note that {PROTEIN_ROOT} is the original dataset CrossDocked2020 v1.1, which can be downloaded [here](https://bits.csb.pitt.edu/files/crossdock2020/).
-## Future Work
-
-We are committed to developing a truly applicable method that enables chemists and biologists to effortlessly utilize it for efficient drug discovery.
 
 ## Citation
 
