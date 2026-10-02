@@ -154,7 +154,29 @@ def compute_loss_pfm_g(config, x_bar_predictor, h_bar_predictor, FM, FM_align, p
     x0_align = FM_align.sample_location_and_conditional_flow(
         torch.cat([pos_0, lh_0], dim=-1), target, batch_ligand, t=t
     )
-    _, state, _ = FM(x0_align, target, torch.zeros_like(target), batch_ligand, t=t)
+    x_bar_input = torch.cat([
+        x0_align[:, :3],
+        F.one_hot(ligand_v, 12).float(),
+    ], dim=-1)
+    h_bar_input = torch.cat([
+        ligand_pos,
+        F.one_hot(sample_v_from_softmax(F.softmax(lh_0, dim=-1)), 12).float(),
+    ], dim=-1)
+    with torch.no_grad():
+        x_bar_predictor.forward = x_bar_predictor.wrap_forward(
+            batch_ligand, p_xh, batch_protein, None, None, None, False, False
+        )
+        h_bar_predictor.forward = h_bar_predictor.wrap_forward(
+            batch_ligand, p_xh, batch_protein, None, None, None, False, False
+        )
+        x_bar = x_bar_predictor(t, x_bar_input)[0][:, :3]
+        h_bar = h_bar_predictor(t, h_bar_input)[0][:, 3:]
+        h_bar = sample_v_from_softmax(F.softmax(h_bar, dim=-1))
+        total_bar = torch.cat([
+            x_bar,
+            type2prob_traj(norm_k, h_bar),
+        ], dim=-1)
+    _, state, _ = FM(x0_align, target, total_bar, batch_ligand, t=t)
     zt = torch.cat([
         state[:, :3],
         F.one_hot(sample_v_from_softmax(F.softmax(state[:, 3:], dim=-1)), 12).float(),
