@@ -247,7 +247,7 @@ def sample_ode_pfm_g(
     prior,
     net_dynamics,
     num_mole=10,
-    num_steps=1000,
+    num_steps=100,
     guidance_scale=5.5,
     guidance_target=1.0,
 ):
