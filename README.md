@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-This is the official implementation of the paper "Perturbed Flow Matching for Structure-Based Drug Design". [[PDF]]
+This is the official implementation of the paper "PFM: perturbed flow matching for structure-based drug design". [[PDF]]
 
 <p align="center">
   <img src="PFM_mf.png"/> 
