@@ -1,4 +1,4 @@
-# Perturbed Flow Matching for Structure-Based Drug Design
+# PFM: perturbed flow matching for structure-based drug design
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
