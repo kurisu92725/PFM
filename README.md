@@ -89,3 +89,13 @@ This project builds upon several previous works. We recommend citing the followi
   year={2023}
 }
 ```
+
+```
+@article{lipman2024flow,
+	title={Flow matching guide and code},
+	author={Lipman, Yaron and Havasi, Marton and Holderrieth, Peter and Shaul, Neta and Le, Matt and Karrer, Brian and Chen, Ricky TQ and Lopez-Paz, David and Ben-Hamu, Heli and Gat, Itai},
+	journal={arXiv preprint arXiv:2412.06264},
+	year={2024}
+}
+```
+
